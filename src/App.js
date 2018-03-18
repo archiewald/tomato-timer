@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { TopBar } from './TopBar';
-import { ModePanel } from './ModePanel';
-import { Timer } from './Timer';
-import { ControlPanel } from './ControlPanel';
+
+import ModePanelContainer from './containers/ModePanelContainer';
+
+import { TopBar } from './components/TopBar';
+import { Timer } from './components/Timer';
+import { ControlPanel } from './components/ControlPanel';
 
 class App extends Component {
   render() {
     return (
       <div>
         <TopBar/>
-        <ModePanel/>
-        <Timer/>
+        <ModePanelContainer />
+        <Timer time={24}/>
         <ControlPanel/>
       </div>
     );
