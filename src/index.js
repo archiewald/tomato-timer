@@ -11,7 +11,9 @@ import './styles/index.css'
 import App from './App';
 import tomatoTimerApp from './reducers'
 
-let store = createStore(tomatoTimerApp);
+let store = createStore(tomatoTimerApp,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 // Log the initial state
 console.log(store.getState())
@@ -22,11 +24,6 @@ const unsubscribe = store.subscribe(() =>
   console.log(store.getState())
 )
 
-// Dispatch some actions
- store.dispatch(setMode("LONG_BREAK"));
-// store.dispatch(setMode("SHORT_BREAK"));
-// store.dispatch(setMode("POMODORO"));
-//  
 // Stop listening to state updates
 //unsubscribe()
 
