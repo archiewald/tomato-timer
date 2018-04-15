@@ -5,7 +5,6 @@ import ControlPanelContainer from './containers/ControlPanelContainer';
 import ClockContainer from './containers/ClockContainer';
 
 import { TopBar } from './components/TopBar';
-import { Clock } from './components/Clock';
 
 class App extends Component {
   render() {

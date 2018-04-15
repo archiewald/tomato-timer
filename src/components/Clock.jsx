@@ -8,19 +8,36 @@ import {TitleTimer} from './TitleTimer';
 import {MainTimer} from './MainTimer';
 
 export class Clock extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            mode: this.props.mode,
-            time: 0
+    // constructor(props) {
+    //     super(props);
+    // }
+    componentDidMount() {
+        this.interval = setInterval(this.forceUpdate.bind(this), 1000);
+    }
+    
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    // Helper function that takes store state
+    // and returns the current elapsed time
+    getElapsedTime(baseTime, startedAt, stoppedAt = new Date().getTime()) {
+        if (!startedAt) {
+            return 0;
+        } else {
+            console.log(stoppedAt, startedAt, baseTime);
+            return stoppedAt - startedAt + baseTime;
         }
     }
 
     render()  {
+        const { baseTime, startedAt, stoppedAt } = this.props;
+        const elapsed = this.getElapsedTime(baseTime, startedAt, stoppedAt)
+        
         return (
             <div>
-                <TitleTimer time={this.state.time}/>
-                <MainTimer time={this.state.time}/>
+                <TitleTimer time={elapsed}/>
+                <MainTimer time={elapsed}/>
             </div>
         )
     }

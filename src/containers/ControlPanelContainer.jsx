@@ -1,6 +1,14 @@
 import { connect } from "react-redux";
 import { startTimer, pauseTimer, resetTimer } from '../actions'
 import { ControlPanel } from '../components/ControlPanel';
+
+const mapStateToProps = (state) => {
+  return {
+    baseTime: state.control.baseTime,
+    startedAt: state.control.startedAt,
+    stoppedAt: state.control.stoppedAt,
+  }
+}
    
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -16,4 +24,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
  
-export default connect(null,mapDispatchToProps)(ControlPanel);
+export default connect(mapStateToProps, mapDispatchToProps)(ControlPanel);

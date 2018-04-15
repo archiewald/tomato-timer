@@ -4,10 +4,12 @@ import { Clock } from '../components/Clock';
 
 const mapStateToProps = (state) => {
   return {
-    mode: state.mode
+    baseTime: state.control.baseTime,
+    startedAt: state.control.startedAt,
+    stoppedAt: state.control.stoppedAt
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,null
 )(Clock);
