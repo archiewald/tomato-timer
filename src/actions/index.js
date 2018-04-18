@@ -9,7 +9,6 @@ export function setMode(mode){
 }
 
 export function startTimer(baseTime = 0){
-    console.log("in startTimer baseTime is ",baseTime);
     return {
         type: "START_TIMER",
         baseTime: baseTime,
