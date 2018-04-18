@@ -4,15 +4,11 @@ function getElapsedTime(baseTime, startedAt, stoppedAt = new Date().getTime()) {
     if (!startedAt) {
       return 0;
     } else {
-      return stoppedAt - startedAt + baseTime;
+        return stoppedAt - startedAt + baseTime;
     }
 }
-  
 
 export const ControlPanel = ({startTimer, pauseTimer, resetTimer, baseTime, startedAt, stoppedAt}) => {
-    console.log(baseTime, startedAt)
-    const elapsed = getElapsedTime(baseTime, startedAt, stoppedAt);
-
     return (
         <div className="container my-4">
             <div className="row">
@@ -20,7 +16,7 @@ export const ControlPanel = ({startTimer, pauseTimer, resetTimer, baseTime, star
                     <button
                         type="button"
                         className="btn btn-success btn-lg btn-block"
-                        onClick={() => startTimer(elapsed)}>
+                        onClick={() => startTimer(getElapsedTime(baseTime, startedAt, stoppedAt))}>
                         Start
                     </button> 
                 </div>

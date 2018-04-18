@@ -25,7 +25,6 @@ export class Clock extends React.Component {
         if (!startedAt) {
             return 0;
         } else {
-            console.log(stoppedAt, startedAt, baseTime);
             return stoppedAt - startedAt + baseTime;
         }
     }

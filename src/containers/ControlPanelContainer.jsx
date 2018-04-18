@@ -12,8 +12,8 @@ const mapStateToProps = (state) => {
    
 const mapDispatchToProps = (dispatch) => {
   return {
-    startTimer: ()  => {
-      dispatch(startTimer());
+    startTimer: (elapsedTime)  => {
+      dispatch(startTimer(elapsedTime));
     },
     pauseTimer: ()  => {
       dispatch(pauseTimer());
