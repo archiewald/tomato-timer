@@ -8,13 +8,13 @@ import {TitleTimer} from './TitleTimer';
 import {MainTimer} from './MainTimer';
 
 export class Clock extends React.Component {
+    pomodoroTime = 10000;
     // constructor(props) {
     //     super(props);
     // }
     componentDidMount() {
         this.interval = setInterval(this.forceUpdate.bind(this), 1000);
     }
-    
     componentWillUnmount() {
         clearInterval(this.interval);
     }
@@ -30,9 +30,15 @@ export class Clock extends React.Component {
     }
 
     render()  {
-        const { baseTime, startedAt, stoppedAt } = this.props;
+        const { baseTime, startedAt, stoppedAt, pauseTimer, resetTimer } = this.props;
         const elapsed = this.getElapsedTime(baseTime, startedAt, stoppedAt)
-        
+
+        if (elapsed >= this.pomodoroTime){
+            console.log("POMODORO!");
+            pauseTimer();
+            resetTimer();
+        }
+
         return (
             <div>
                 <TitleTimer time={elapsed}/>

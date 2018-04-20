@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-// import { setMode } from '../actions'
+import { pauseTimer, resetTimer } from '../actions'
 import { Clock } from '../components/Clock';
 
 const mapStateToProps = (state) => {
@@ -10,6 +10,17 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    pauseTimer: ()  => {
+      dispatch(pauseTimer());
+    },
+    resetTimer: ()  => {
+      dispatch(resetTimer());
+    }
+  }
+}
+
 export default connect(
-  mapStateToProps,null
+  mapStateToProps,mapDispatchToProps
 )(Clock);
