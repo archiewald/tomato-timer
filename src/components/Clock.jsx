@@ -1,14 +1,56 @@
 import React from 'react';
 import moment from 'moment';
+import Sound from 'react-sound';
 import {TitleTimer} from './TitleTimer';
 import {MainTimer} from './MainTimer';
 
 export class Clock extends React.Component {
-    componentDidMount() {
-        this.interval = setInterval(this.forceUpdate.bind(this), 1000);
+    constructor(props){
+        super(props);
+        this.state = {
+            playSound: Sound.status.STOPPED
+        }
     }
+    
+    componentDidMount() {
+        this.interval = setInterval(() => this.tick(), 1000);
+    }
+    
     componentWillUnmount() {
         clearInterval(this.interval);
+    }
+    
+    tick() {
+        const elapsedTime = this.getElapsedTime(this.props.baseTime, this.props.startedAt, this.props.stoppedAt);
+        if (elapsedTime >=  this.minutesToMiliseconds(this.props.mode.time)){
+            console.log(this.props.mode.name);
+            this.setState({
+                playSound: Sound.status.PLAYING
+            })
+            this.props.pauseTimer();
+            this.props.resetTimer();
+        }   else {
+            this.setState({
+                playSound: Sound.status.STOPPED
+            })
+        }
+        this.forceUpdate();
+    }
+    
+    
+    render()  {
+        const { baseTime, startedAt, stoppedAt, mode } = this.props;
+        const elapsedTime = this.getElapsedTime(baseTime, startedAt, stoppedAt)                  
+        return (
+            <div>
+                <TitleTimer time={this.getTimeLeft(elapsedTime, mode.time)}/>
+                <MainTimer time={this.getTimeLeft(elapsedTime, mode.time)}/>
+                <Sound
+                    url="alarm.mp3"
+                    playStatus={this.state.playSound}
+                    />
+            </div>
+        )
     }
 
     // Helper function that takes store state
@@ -20,30 +62,24 @@ export class Clock extends React.Component {
             return stoppedAt - startedAt + baseTime;
         }
     }
-
-    getTimeLeft(elapsedTime, setTime){
-        const timeLeft = setTime * 60 * 1000 - elapsedTime;
-        console.log(timeLeft);
-        return `${moment.duration(timeLeft).minutes()}:${moment.duration(timeLeft).seconds()}`;
+    
+    minutesToMiliseconds(minutes){
+        return minutes * 60 * 1000
     }
-
-    render()  {
-        const { baseTime, startedAt, stoppedAt, pauseTimer, resetTimer, mode } = this.props;
-        const elapsedTime = this.getElapsedTime(baseTime, startedAt, stoppedAt)
-
-        // if (elapsed >= this.pomodoroTime){
-        //     console.log("POMODORO!");
-        //     pauseTimer();
-        //     resetTimer();
-
-        // }
-
-        return (
-            <div>
-                <p>{mode.name},{mode.time}</p>
-                <TitleTimer time={this.getTimeLeft(elapsedTime, mode.time)}/>
-                <MainTimer time={this.getTimeLeft(elapsedTime, mode.time)}/>
-            </div>
-        )
+    
+    getTimeLeft(elapsedTime, setTime){
+        const timeLeft = this.minutesToMiliseconds(setTime) - elapsedTime;
+        console.log(timeLeft);
+        return `${
+            moment
+            .duration(timeLeft).
+            minutes()
+        }:${
+            moment
+            .duration(timeLeft)
+            .seconds()
+            .toString()
+            .padStart(2,"0")
+        }`;
     }
 }
