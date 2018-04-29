@@ -4,7 +4,7 @@ import {Modes} from '../actions/index'
 
 const {POMODORO} = Modes;
 
-function mode(state = POMODORO, action) {
+function mode(state = {POMODORO}, action) {
     switch (action.type) {
         case "SET_MODE": {
             return action.mode

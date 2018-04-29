@@ -1,7 +1,16 @@
 export const Modes = {
-    POMODORO: "POMODORO",
-    SHORT_BREAK: "SHORT_BREAK",
-    LONG_BREAK: "LONG_BREAK",
+    POMODORO: {
+        name: "POMODORO",
+        time: 20,
+    },
+    SHORT_BREAK: {
+        name: "SHORT_BREAK",
+        time: 5,
+    },
+    LONG_BREAK: {
+        name: "LONG_BREAK",
+        time: 10,
+    }
 }
 
 export function setMode(mode){

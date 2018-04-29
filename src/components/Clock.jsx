@@ -1,17 +1,9 @@
-// TO DO:
-// - subscribe to store
-// - if START_TIMER action is dispatched (or state is changed?), start running clock in interval of 1000 ms
-// - on each interval dispatch TICK action with current time
-
 import React from 'react';
+import moment from 'moment';
 import {TitleTimer} from './TitleTimer';
 import {MainTimer} from './MainTimer';
 
 export class Clock extends React.Component {
-    pomodoroTime = 10000;
-    // constructor(props) {
-    //     super(props);
-    // }
     componentDidMount() {
         this.interval = setInterval(this.forceUpdate.bind(this), 1000);
     }
@@ -29,20 +21,28 @@ export class Clock extends React.Component {
         }
     }
 
-    render()  {
-        const { baseTime, startedAt, stoppedAt, pauseTimer, resetTimer } = this.props;
-        const elapsed = this.getElapsedTime(baseTime, startedAt, stoppedAt)
+    getTimeLeft(elapsedTime, setTime){
+        const timeLeft = setTime * 60 * 1000 - elapsedTime;
+        console.log(timeLeft);
+        return `${moment.duration(timeLeft).minutes()}:${moment.duration(timeLeft).seconds()}`;
+    }
 
-        if (elapsed >= this.pomodoroTime){
-            console.log("POMODORO!");
-            pauseTimer();
-            resetTimer();
-        }
+    render()  {
+        const { baseTime, startedAt, stoppedAt, pauseTimer, resetTimer, mode } = this.props;
+        const elapsedTime = this.getElapsedTime(baseTime, startedAt, stoppedAt)
+
+        // if (elapsed >= this.pomodoroTime){
+        //     console.log("POMODORO!");
+        //     pauseTimer();
+        //     resetTimer();
+
+        // }
 
         return (
             <div>
-                <TitleTimer time={elapsed}/>
-                <MainTimer time={elapsed}/>
+                <p>{mode.name},{mode.time}</p>
+                <TitleTimer time={this.getTimeLeft(elapsedTime, mode.time)}/>
+                <MainTimer time={this.getTimeLeft(elapsedTime, mode.time)}/>
             </div>
         )
     }

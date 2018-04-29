@@ -6,7 +6,8 @@ const mapStateToProps = (state) => {
   return {
     baseTime: state.control.baseTime,
     startedAt: state.control.startedAt,
-    stoppedAt: state.control.stoppedAt
+    stoppedAt: state.control.stoppedAt,
+    mode: state.mode
   }
 }
 
