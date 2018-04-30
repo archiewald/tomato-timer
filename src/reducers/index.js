@@ -15,8 +15,6 @@ function mode(state = {POMODORO}, action) {
     }
 }
 
-//todo: fix start after pause
-
 function control(state = {
     startedAt: undefined,
     stoppedAt: undefined,
