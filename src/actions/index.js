@@ -38,10 +38,3 @@ export function resetTimer(){
         now: new Date().getTime()
     }
 }
-
-export function tick(currentTime){
-    return {
-        type: "TICK",
-        currentTime
-    }
-}

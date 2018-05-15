@@ -23,7 +23,6 @@ export class Clock extends React.Component {
     tick() {
         const elapsedTime = this.getElapsedTime(this.props.baseTime, this.props.startedAt, this.props.stoppedAt);
         if (elapsedTime >=  this.minutesToMiliseconds(this.props.mode.time)){
-            console.log(this.props.mode.name);
             this.setState({
                 playSound: Sound.status.PLAYING
             })
@@ -69,7 +68,6 @@ export class Clock extends React.Component {
     
     getTimeLeft(elapsedTime, setTime){
         const timeLeft = this.minutesToMiliseconds(setTime) - elapsedTime;
-        console.log(timeLeft);
         return `${
             moment
             .duration(timeLeft).
